@@ -4,7 +4,7 @@
 
 	<h1>{{ $post->title }}</h1>
 
-	<img src="{{ asset('storage/'.$post->picture) }}" alt="Image de couverture" style="max-width: 300px;">
+	<img src="{{ Storage::disk('s3')->url($post->picture) }}" alt="Image de couverture" style="max-width: 300px;">
 
 	<div>{{ $post->content }}</div>
 

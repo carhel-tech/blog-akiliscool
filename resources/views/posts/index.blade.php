@@ -22,34 +22,38 @@
         <tbody>
             <!-- On parcourt la collection de Post -->
             @foreach ($posts as $post)
-                <tr>
-                    <td>
-                        <!-- Lien pour afficher un Post -->
-                        <a href="{{ route('posts.show', $post) }}" title="Lire l'article">{{ $post->title }}</a>
-                    </td>
 
-                    <td class="text-center">
-                        @if($post->picture)
-                            <img src="{{ Storage::disk('s3')->url($post->picture) }}" alt="{{ basename($post->picture) }}" class="img-thumbnail" width="150">
-                        @else
-                            <span class="text-muted">Aucune image</span>
-                        @endif
-                    </td>
 
-                    <td class="text-center">
-                        <!-- Bouton pour modifier un Post -->
-                        <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning" title="Modifier l'article">Modifier</a>
-                    </td>
 
-                    <td class="text-center">
-                        <!-- Formulaire pour supprimer un Post -->
-                        <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
-                            @csrf
-                            @method("DELETE")
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <!-- Lien pour afficher un Post -->
+                    <a href="{{ route('posts.show', $post) }}" title="Lire l'article">{{ $post->title }}</a>
+                </td>
+
+                <td class="text-center">
+                    @if($post->picture)
+
+                    <img src="{{ Storage::disk('s3')->url($post->picture) }}" alt="{{ basename($post->picture) }}" class="img-thumbnail" width="150">
+                    @else
+                    <span class="text-muted">Aucune image</span>
+                    @endif
+                </td>
+
+                <td class="text-center">
+                    <!-- Bouton pour modifier un Post -->
+                    <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning" title="Modifier l'article">Modifier</a>
+                </td>
+
+                <td class="text-center">
+                    <!-- Formulaire pour supprimer un Post -->
+                    <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+                        @csrf
+                        @method("DELETE")
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>

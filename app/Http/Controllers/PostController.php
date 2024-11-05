@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //On récupère tous les Post
+        //On récupère tous les Post Storage::disk('s3')->url($post->picture)
         $posts = Post::latest()->get();
 
         // On transmet les Post à la vue
@@ -40,7 +40,7 @@ class PostController extends Controller
         // 1. La validation
         $this->validate($request, [
             'title' => 'bail|required|string|max:255',
-            "picture" => 'bail|required|image|max:1024',
+            "picture" => 'bail|required|mimes:jpg,jpeg,png,pdf,doc,docx|max:1024',
             "content" => 'bail|required',
         ]);
 
@@ -61,6 +61,7 @@ class PostController extends Controller
             's3'
         );
 
+        // dd( $chemin_image);
         // 3. On enregistre les informations du Post
         Post::create([
             "title" => $request->title,
